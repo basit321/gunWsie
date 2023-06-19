@@ -8,6 +8,7 @@ import {
   Dashboard,
   CounterScreen,
   Quiz,
+  Summary
 } from "../Screens";
 const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
@@ -20,6 +21,7 @@ const StackNavigation = () => {
           <Stack.Screen name={Routes.Dashoard} component={Dashboard} />
           <Stack.Screen name={Routes.CounterScreen} component={CounterScreen} />
           <Stack.Screen name={Routes.Quiz} component={Quiz} />
+          <Stack.Screen name={Routes.Sumary} component={Summary} />
         </Stack.Group>
       </Stack.Navigator>
     </View>
@@ -27,3 +29,4 @@ const StackNavigation = () => {
 };
 
 export default StackNavigation;
+

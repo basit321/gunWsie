@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Alert } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import Images from "../../Assets/Images";
 import Colors from "../../Utils/Colors";
@@ -16,15 +16,24 @@ const Timer = ({ onTimeFinish }) => {
       setRemainingTime((prevTime) => {
         if (prevTime <= 0) {
           clearInterval(intervalRef.current);
-          onTimeFinish();
-          // Timer has finished, perform any action needed
+          if (onTimeFinish && intervalRef.current) {
+            onTimeFinish();
+          }
           return 0;
         }
         return prevTime - 1;
       });
     }, 1000);
 
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      clearInterval(intervalRef.current);
+    };
   }, []);
 
   const minutes = Math.floor(remainingTime / 60);
@@ -51,6 +60,7 @@ const Timer = ({ onTimeFinish }) => {
 };
 
 export default Timer;
+
 const styles = StyleSheet.create({
   box: {
     width: wp(90),
@@ -58,7 +68,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.black_06,
     borderRadius: 3,
     justifyContent: "center",
-
     flexDirection: "row",
     alignItems: "center",
   },

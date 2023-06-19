@@ -8,5 +8,10 @@ const Images = {
   cross: require("./Img/cross.png"),
   right: require("./Img/right.png"),
   circle: require("./Img/circle.png"),
+  reward: require("./Img/Reward.png"),
+  rewardText: require("./Img/rewardText.png"),
+  share:require("./Img/share.png"),
+  
+  
 };
 export default Images;

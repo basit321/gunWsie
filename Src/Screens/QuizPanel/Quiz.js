@@ -19,11 +19,15 @@ import { hp, wp } from "../../Utils/ResponsiveSize";
 import Progressivebar from "./Progressivebar";
 import Timer from "./timer";
 import { quizSet } from "./Data";
+import { useIsFocused } from "@react-navigation/native";
 
 const Quiz = ({ navigation }) => {
   const [quizData, setQuizData] = useState(quizSet);
+  const isFocused = useIsFocused()
   const [quizIndex, setQuizIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
+ 
+ 
   const popup = () => {
     Alert.alert(
       "Are you sure you want to quit?",
@@ -43,6 +47,7 @@ const Quiz = ({ navigation }) => {
     );
   };
   const onQuizTimeEnd = () => {
+    
     Alert.alert(
       "Time's up!",
       "Your quiz time is over",
@@ -54,6 +59,27 @@ const Quiz = ({ navigation }) => {
       ],
       { cancelable: false }
     );
+    }
+   
+  
+  const onPressNext = () => {
+    if (quizIndex < quizData.length - 1) {
+      setQuizIndex(quizIndex + 1);
+      setSelectedOption(null);
+    } else {
+      
+      Alert.alert(
+        "Quiz Completed",
+        "Your quiz is completed",
+        [
+          {
+            text: "ok",
+            onPress: () =>{navigation.navigate(Routes.Sumary)},
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   };
   const showOutput = () => {
     switch (quizData[quizIndex].type) {
@@ -64,6 +90,7 @@ const Quiz = ({ navigation }) => {
               {quizIndex + 1}
               {". "}
               {quizData[quizIndex].title}
+              
             </Text>
             <View style={{ marginTop: hp(33) }} />
             <FlatList
@@ -284,24 +311,7 @@ const Quiz = ({ navigation }) => {
         return null;
     }
   };
-  const onPressNext = () => {
-    if (quizIndex < quizData.length - 1) {
-      setQuizIndex(quizIndex + 1);
-      setSelectedOption(null);
-    } else {
-      Alert.alert(
-        "Quiz Completed",
-        "Your quiz is completed",
-        [
-          {
-            text: "ok",
-            onPress: () => navigation.navigate(Routes.Dashoard),
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-  };
+ 
   return (
     <ImageBackground source={Images.primaryBackground} style={styles.container}>
       <View style={{ flex: 1 }}>
@@ -345,7 +355,10 @@ const Quiz = ({ navigation }) => {
           >
             {quizIndex + 1}/{quizData.length}
           </Text>
-          <Timer onTimeFinish={onQuizTimeEnd} />
+          {isFocused && (
+        <Timer onTimeFinish={onQuizTimeEnd} />
+      )}
+         
         </View>
         <View style={{ marginTop: hp(11) }} />
         <Progressivebar totalQuizez={quizData.length} attempt={quizIndex + 1} />

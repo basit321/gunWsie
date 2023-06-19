@@ -3,6 +3,7 @@ import SplashScreen from "./Splash/SplashScreen";
 import Welcome from "./Auth/Welcome";
 import Dashboard from "./Dashboard/Dashboard";
 import CounterScreen from "./Dashboard/CounterScreen";
+import Summary from "./Sumary/Sumary";
 import Quiz from "./QuizPanel/Quiz";
 // Export Screens ////
-export { Welcome, SplashScreen, Dashboard, CounterScreen, Quiz };
+export { Welcome, SplashScreen, Dashboard, CounterScreen, Quiz,Summary };
