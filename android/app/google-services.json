@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "523865209818",
+    "project_id": "gunwise-dd715",
+    "storage_bucket": "gunwise-dd715.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523865209818:android:f8854285462172b29e5ee3",
+        "android_client_info": {
+          "package_name": "com.Gunwise.Gunwise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "523865209818-bm0r7rv1k3f06vh0mfhcmtrjr7t7huqv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Gunwise.Gunwise",
+            "certificate_hash": "70ee7866c2d37552a2f5d0290b263966891103d5"
+          }
+        },
+        {
+          "client_id": "523865209818-lioqmj5hcfsurk02bf6abm8dlsd3u8a5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Gunwise.Gunwise",
+            "certificate_hash": "600ad0818a0186f8fb0be1063d54554bdc3925fc"
+          }
+        },
+        {
+          "client_id": "523865209818-uk1knvjke7vnpb5vqpnkakjbn3qpu884.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDevaDS4RYcXm_-hF3k4P2JaGHEkG0l4BY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "523865209818-daki42n2t9krsnvdtebamjum4t5tsb3a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

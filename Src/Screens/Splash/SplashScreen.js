@@ -10,18 +10,30 @@ import React, { useEffect, useRef } from "react";
 import Images from "../..//Assets/Images";
 import { hp, wp } from "../..//Utils/ResponsiveSize";
 import Routes from "../../Navigation/Routes";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const SplashScreen = ({ navigation }) => {
   const scaleValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+   
+
+
     const navigatetoNextScreen = async () => {
+     const val= await AsyncStorage.getItem('@UserProfile');
+     
       Animated.timing(scaleValue, {
         toValue: 1,
         duration: 2000, // Duration for the animation (in milliseconds)
         useNativeDriver: true, // Enable native driver for performance
       }).start();
       setTimeout(() => {
-        navigation.navigate(Routes.Welcome);
+        if(val==undefined||val==""||val==null)
+        {
+        navigation.navigate(Routes.Login);
+        }
+        else{
+          navigation.navigate(Routes.Welcome);
+        }
       }, 2000);
     };
     navigatetoNextScreen();

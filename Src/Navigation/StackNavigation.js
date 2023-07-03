@@ -8,7 +8,8 @@ import {
   Dashboard,
   CounterScreen,
   Quiz,
-  Summary
+  Summary,
+  Login,
 } from "../Screens";
 const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
@@ -17,6 +18,7 @@ const StackNavigation = () => {
       <Stack.Navigator>
         <Stack.Group screenOptions={{ headerShown: false }}>
           <Stack.Screen name={Routes.SplashScreen} component={SplashScreen} />
+          <Stack.Screen name={Routes.Login} component={Login} />
           <Stack.Screen name={Routes.Welcome} component={Welcome} />
           <Stack.Screen name={Routes.Dashoard} component={Dashboard} />
           <Stack.Screen name={Routes.CounterScreen} component={CounterScreen} />

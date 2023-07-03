@@ -8,7 +8,8 @@ import {
 import StackNavigation from "./Src/Navigation/StackNavigation"; // this is for stack navigation//
 import { GestureHandlerRootView } from "react-native-gesture-handler"; // this is for gesture handler//
 
-import * as Font from "expo-font"; // <---
+import * as Font from 'expo-font';
+
 import * as SplashScreen from "expo-splash-screen"; /// this is for hide Splash and load fonts//
 import { StatusBar } from "expo-status-bar";
 
@@ -24,13 +25,9 @@ const App = () => {
   const fetchFonts = async () => {
     try {
       await SplashScreen.preventAutoHideAsync(); /// this is for hide Splash and load fonts//
-      await Font.loadAsync({
-        font: require("./Src/Assets/Fonts/font.ttf"),
-        primayFont: require("./Src/Assets/Fonts/primayFont.otf"),
-        number: require("./Src/Assets/Fonts/number.ttf"),
-      });
+     
     } catch (e) {
-      console.warn(e);
+      console.log('Error occurred while loading custom fonts:', e);
     } finally {
       setFontLoaded(true);
       SplashScreen.hideAsync();

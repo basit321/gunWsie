@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "Src/Assets/Fonts/font.ttf",
+      "sha1": "22598a027c4921495593bb25157dcf2f8eb84209"
+    },
+    {
+      "path": "Src/Assets/Fonts/number.ttf",
+      "sha1": "428bc9aaf6c6fb8a93e6ce2547eec370a5899034"
+    },
+    {
+      "path": "Src/Assets/Fonts/primayFont.otf",
+      "sha1": "17727ceda6342a62d429b67c79b3e25fa3c9f475"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ const Routes = {
   Dashoard: "Dashoard",
   CounterScreen: "CounterScreen",
   Quiz: "Quiz",
-  Sumary:"Sumary"
+  Sumary:"Sumary",
+  Login:"Login"
 };
 export default Routes;

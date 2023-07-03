@@ -2,6 +2,8 @@
   "expo": {
     "name": "Gunwise",
     "slug": "Gunwise",
+    "plugins": [
+      "@react-native-google-signin/google-signin"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,13 +20,22 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
+    
+     "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.Gunwise.Gunwise",
+      "googleServicesFile": "./google-services.json"
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cc0f3cf4-5313-417f-ac9a-14e91a6d4ef7"
+      }
     }
   }
 }
