@@ -80,10 +80,10 @@ const Login = ({ navigation }) => {
     } catch (error) {
       if (error.message === 'Sign in action cancelled') {
         // Handle sign-in cancellation
-        console.log('Sign-in cancelled by the user');
+        //console.log('Sign-in cancelled by the user');
       } else if (error.message === 'Another operation is already in progress') {
         // Handle sign-in in progress
-        console.log('Sign-in is already in progress');
+        //console.log('Sign-in is already in progress');
       } else if (error.message === 'Play services are not available') {
         // Handle Play Services not available
         Alert.alert("PLEASE ENABLE PLAY SERVICE")

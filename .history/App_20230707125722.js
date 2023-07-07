@@ -28,7 +28,7 @@ const App = () => {
       await SplashScreen.preventAutoHideAsync(); /// this is for hide Splash and load fonts//
 
     } catch (e) {
-      console.log('Error occurred while loading custom fonts:', e);
+      //console.log('Error occurred while loading custom fonts:', e);
     } finally {
       setFontLoaded(true);
       SplashScreen.hideAsync();

@@ -40,7 +40,7 @@ const Dashboard = ({ navigation }) => {
 
   }, [])
 
-  console.log(user)
+  //console.log(user)
 
   return (
     <ImageBackground source={Images.primaryBackground} style={styles.container}>

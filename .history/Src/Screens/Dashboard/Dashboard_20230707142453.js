@@ -29,7 +29,7 @@ const Dashboard = ({ navigation }) => {
 
   const { user } = useAuth()
 
-  console.log(user)
+  //console.log(user)
 
   return (
     <ImageBackground source={Images.primaryBackground} style={styles.container}>

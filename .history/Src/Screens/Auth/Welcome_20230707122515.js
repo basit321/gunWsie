@@ -42,7 +42,7 @@ const Welcome = ({ navigation, route }) => {
         return
       }
 
-      console.log('res.data[0]', res.data[0])
+      //console.log('res.data[0]', res.data[0])
 
       setData(res.data[0])
 

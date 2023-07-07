@@ -42,7 +42,7 @@ const Dashboard = ({ navigation }) => {
         return
       }
 
-      console.log(quizes.data)
+      //console.log(quizes.data)
     }
 
 
@@ -50,7 +50,7 @@ const Dashboard = ({ navigation }) => {
 
   }, [])
 
-  console.log(user)
+  //console.log(user)
 
   return (
     <ImageBackground source={Images.primaryBackground} style={styles.container}>

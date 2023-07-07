@@ -63,7 +63,7 @@ export default function UseFirebase() {
 
         try {
 
-            // console.log(where)
+            // //console.log(where)
 
             if (setLoading) setLoading(true)
 
@@ -212,7 +212,7 @@ export default function UseFirebase() {
 
             const { height, width, uri } = image
 
-            console.log(height, width, uri)
+            //console.log(height, width, uri)
 
             const result = await ImageManipulator.manipulateAsync(
                 uri,
@@ -226,7 +226,7 @@ export default function UseFirebase() {
             const snapshot = await uploadBytes(storageRef, blob)
             const url = await getDownloadURL(snapshot.ref)
 
-            console.log(url)
+            //console.log(url)
 
             if (setLoading) setLoading(false)
 

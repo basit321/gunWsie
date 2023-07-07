@@ -41,10 +41,10 @@ const Dashboard = ({ navigation }) => {
     const getQuizes = async () => {
       const quizes = await getDocumentsRef('quizes', setLoading, ['season'], where('status', '==', 'active'))
 
-      console.log(quizes.data)
+      //console.log(quizes.data)
 
       if (quizes.status === 400) {
-        console.log(quizes.error)
+        //console.log(quizes.error)
         return
       }
 
@@ -56,7 +56,7 @@ const Dashboard = ({ navigation }) => {
 
   }, [])
 
-  console.log(user)
+  //console.log(user)
 
   return (
     <ImageBackground source={Images.primaryBackground} style={styles.container}>

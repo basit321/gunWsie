@@ -39,11 +39,11 @@ const Dashboard = ({ navigation }) => {
       const quizes = await getDocuments('quizes')
 
       if (quizes.status) {
-        console.log(quizes.error)
+        //console.log(quizes.error)
         return
       }
 
-      console.log(quizes.data)
+      //console.log(quizes.data)
     }
 
 
@@ -51,7 +51,7 @@ const Dashboard = ({ navigation }) => {
 
   }, [])
 
-  console.log(user)
+  //console.log(user)
 
   return (
     <ImageBackground source={Images.primaryBackground} style={styles.container}>

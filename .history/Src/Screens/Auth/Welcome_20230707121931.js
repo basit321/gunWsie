@@ -34,7 +34,7 @@ const Welcome = ({ navigation, route }) => {
       // colName, setLoading, where
       const response = await getDocuments('quizes', setLoading, (where('status', '==', 'active'), orderBy('createdAt', 'desc')))
 
-      console.log(response)
+      //console.log(response)
       setLoading(false)
 
 
