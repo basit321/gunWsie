@@ -20,16 +20,13 @@ const CounterScreen = ({ navigation, route }) => {
   const { getDocuments, updateDocument, addDocumentWithId, getReference } = UseFirebase()
 
   useEffect(() => {
-
-    if (loading) return
-
     const timer = setInterval(() => {
       setCount((prevCount) => prevCount - 1);
     }, 1500);
 
     // Clean up the timer when component unmounts
     return () => clearInterval(timer);
-  }, [loading]);
+  }, []);
 
 
   useEffect(() => {
@@ -124,10 +121,8 @@ const CounterScreen = ({ navigation, route }) => {
           questions,
           quiz: route?.params?.quiz,
         });
-      }
 
-      if (count === 0) {
-        setCount(3)
+        setCount(3);
       }
     }, 1000);
   }, [count, loading]);

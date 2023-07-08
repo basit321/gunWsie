@@ -112,9 +112,14 @@ const Dashboard = ({ navigation }) => {
     if (!season.id) return
 
     const anaLytics = history.filter(item => item.seasonRef.id === season.id)
-    const selectedSeason = seasons.find(item => item.id === season.id)
+    const quizes = seasons.filter(item => item.id === season.id)
 
-    const totalQuiz = selectedSeason?.quizes?.length
+    console.log(quizes)
+
+    const totalQuiz = anaLytics
+    // console.log(totalQuiz)
+    // const passedQuizzes = 4;
+    // const failedQuizzes = 1;
 
     let passed = 0;
     let failed = 0;
@@ -135,11 +140,9 @@ const Dashboard = ({ navigation }) => {
     setRatio({
       passedQuizzes: passed,
       failedQuizzes: failed,
-      // totalQuizzes = quizes played
       totalQuizzes: passed + failed,
       progressPercentage: (passed / (passed + failed)) * 100,
-      points,
-      totalQuiz
+      points
     })
 
     setAnaLytics(anaLytics)

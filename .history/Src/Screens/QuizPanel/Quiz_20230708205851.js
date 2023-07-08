@@ -73,10 +73,10 @@ const Quiz = ({ navigation, route }) => {
 
     const rest = await updateDocument('results', user.uid + route.params.quiz.id, {
       status: 'completed',
-      correct: result,
-      wrong: quizData.length - result,
+      correct: res,
+      wrong: quizData.length - res,
       total: quizData.length,
-      result: result / quizData.length * 100 >= 50 ? 'passed' : 'failed',
+      result: res / quizData.length * 100 >= 50 ? 'passed' : 'failed',
     })
   }
 

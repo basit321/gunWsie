@@ -124,10 +124,8 @@ const CounterScreen = ({ navigation, route }) => {
           questions,
           quiz: route?.params?.quiz,
         });
-      }
 
-      if (count === 0) {
-        setCount(3)
+        setCount(3);
       }
     }, 1000);
   }, [count, loading]);

@@ -8,11 +8,10 @@ import Routes from "../../Navigation/Routes";
 import UseFirebase from "../../Hooks/useFirebase";
 import { arrayUnion, documentId, where } from "firebase/firestore";
 import useAuth from "../../Hooks/useAuth";
-import Loader from "../../Components/Loading";
 
 const CounterScreen = ({ navigation, route }) => {
-  const [count, setCount] = useState(3);
-  const [loading, setLoading] = useState(true)
+  const [count, setCount] = useState(5);
+  const [loading, setLoading] = useState(false)
   const [questions, setQuestions] = useState([])
   const { user } = useAuth()
   // //console.log('questions: ', route.params.quiz);
@@ -20,16 +19,13 @@ const CounterScreen = ({ navigation, route }) => {
   const { getDocuments, updateDocument, addDocumentWithId, getReference } = UseFirebase()
 
   useEffect(() => {
-
-    if (loading) return
-
     const timer = setInterval(() => {
       setCount((prevCount) => prevCount - 1);
     }, 1500);
 
     // Clean up the timer when component unmounts
     return () => clearInterval(timer);
-  }, [loading]);
+  }, []);
 
 
   useEffect(() => {
@@ -72,7 +68,7 @@ const CounterScreen = ({ navigation, route }) => {
           }
         }
 
-        res = await getDocuments('questions', null, where(documentId(), 'in', randomNumbers));
+        res = await getDocuments('questions', setLoading, where(documentId(), 'in', randomNumbers));
 
         if (res.status === 400) {
           // handle any error or redirect
@@ -101,7 +97,6 @@ const CounterScreen = ({ navigation, route }) => {
           result: 'N/A'
         })
 
-        setLoading(false)
 
       } catch (error) {
         //console.log('Error getting questions: ', error);
@@ -114,9 +109,6 @@ const CounterScreen = ({ navigation, route }) => {
   }, [])
 
   useEffect(() => {
-
-    if (loading) return
-
     setTimeout(() => {
       if (count === 1) {
 
@@ -124,17 +116,14 @@ const CounterScreen = ({ navigation, route }) => {
           questions,
           quiz: route?.params?.quiz,
         });
-      }
 
-      if (count === 0) {
-        setCount(3)
+        setCount(5);
       }
     }, 1000);
-  }, [count, loading]);
+  }, [count]);
 
   return (
     <ImageBackground source={Images.primaryBackground} style={styles.container}>
-      {loading && <Loader />}
       <Text style={styles.primaryText}>{count}</Text>
     </ImageBackground>
   );

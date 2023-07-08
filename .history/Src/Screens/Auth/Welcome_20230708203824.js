@@ -171,7 +171,7 @@ const Welcome = ({ navigation, route }) => {
                 marginLeft: wp(15),
               }}
             >
-              20 Min
+              {time ? time : "5 Min"}
             </Text>
           </View>
         </View>

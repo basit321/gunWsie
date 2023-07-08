@@ -71,7 +71,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
           justifyContent: "center",
           alignItems: "center",
         }}
-        fill={totalQuizzes / totalQuiz * 100}
+        fill={progressPercentage}
         tintColor={Colors.primaryGreen}
         backgroundColor={Colors.lightGray}
         rotation={0}

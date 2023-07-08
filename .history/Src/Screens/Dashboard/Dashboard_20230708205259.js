@@ -135,7 +135,6 @@ const Dashboard = ({ navigation }) => {
     setRatio({
       passedQuizzes: passed,
       failedQuizzes: failed,
-      // totalQuizzes = quizes played
       totalQuizzes: passed + failed,
       progressPercentage: (passed / (passed + failed)) * 100,
       points,

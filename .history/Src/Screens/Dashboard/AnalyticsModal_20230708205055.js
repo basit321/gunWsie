@@ -13,7 +13,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
   // const totalQuizzes = passedQuizzes + failedQuizzes;
   // const progressPercentage = (passedQuizzes / totalQuizzes) * 100;
 
-  const { passedQuizzes, failedQuizzes, totalQuizzes, totalQuiz, progressPercentage = 0, points } = ratio;
+  const { passedQuizzes, failedQuizzes, totalQuizzes, totalQuizzes, progressPercentage = 0, points } = ratio;
 
   return (
     <Modalize
@@ -71,7 +71,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
           justifyContent: "center",
           alignItems: "center",
         }}
-        fill={totalQuizzes / totalQuiz * 100}
+        fill={progressPercentage}
         tintColor={Colors.primaryGreen}
         backgroundColor={Colors.lightGray}
         rotation={0}
@@ -93,7 +93,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
                   fontFamily: Typrography.bold,
                 }}
               >
-                {totalQuizzes}
+                {passedQuizzes}
               </Text>
               <Text
                 style={{
@@ -103,7 +103,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
                   marginTop: hp(10),
                 }}
               >
-                /{totalQuiz}
+                /{totalQuizzes}
               </Text>
             </View>
             <Text
