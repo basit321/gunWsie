@@ -113,17 +113,19 @@ const Dashboard = ({ navigation }) => {
 
     let passed = 0;
     let failed = 0;
-    let points = 0;
     history.map(item => {
+      console.log(item.correct)
       if (item.result === 'passed') {
         passed += 1
       } else {
         failed += 1
       }
 
-      if (typeof item.correct === 'number') {
-        points += item.correct
-      }
+      console.log(typeof item.correct)
+
+      // if(typeof item.correct ) {
+      //   item.correct = 0
+      // }
 
     })
 
@@ -131,8 +133,7 @@ const Dashboard = ({ navigation }) => {
       passedQuizzes: passed,
       failedQuizzes: failed,
       totalQuizzes: passed + failed,
-      progressPercentage: (passed / (passed + failed)) * 100,
-      points
+      progressPercentage: (passed / (passed + failed)) * 100
     })
 
     setAnaLytics(anaLytics)

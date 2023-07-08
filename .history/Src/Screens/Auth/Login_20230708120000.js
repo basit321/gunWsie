@@ -27,7 +27,7 @@ import useAuth from "../../Hooks/useAuth";
 const Login = ({ navigation }) => {
 
 
-  const { addDocumentWithId, updateDocument, getDocumentById } = UseFirebase()
+  const { addDocumentWithId, updateDocument } = UseFirebase()
   const { setUser } = useAuth()
 
   GoogleSignin.configure({
@@ -64,19 +64,6 @@ const Login = ({ navigation }) => {
         setUser(newUser)
 
       } else {
-
-        const res1 = await getDocumentById('users', login.user.uid)
-
-        if (res1.status === 400) {
-          // handle any error or redirect
-          return
-        }
-
-        if (res1.data.status === 'blocked') {
-          Alert.alert('Your account has been blocked')
-          return
-        }
-
         const user = {
           email: login.user.email,
           name: login.user.displayName,

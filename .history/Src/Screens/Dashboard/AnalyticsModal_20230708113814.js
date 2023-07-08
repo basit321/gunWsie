@@ -13,7 +13,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
   // const totalQuizzes = passedQuizzes + failedQuizzes;
   // const progressPercentage = (passedQuizzes / totalQuizzes) * 100;
 
-  const { passedQuizzes, failedQuizzes, totalQuizzes, progressPercentage = 0, points } = ratio;
+  const { passedQuizzes, failedQuizzes, totalQuizzes, progressPercentage } = ratio;
 
   return (
     <Modalize
@@ -212,7 +212,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
               marginTop: hp(10),
             }}
           >
-            {points}
+            24
           </Text>
           <Text
             style={{

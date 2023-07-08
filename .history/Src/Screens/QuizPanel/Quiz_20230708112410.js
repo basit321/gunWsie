@@ -97,7 +97,7 @@ const Quiz = ({ navigation, route }) => {
         correct: res,
         wrong: quizData.length - res,
         total: quizData.length,
-        result: res / quizData.length * 100 >= 50 ? 'passed' : 'failed',
+        result: res / quizData.length * 100 > 50 ? 'passed' : 'failed',
       })
 
       if (rest.status === 400) {

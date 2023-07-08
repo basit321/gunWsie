@@ -212,7 +212,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
               marginTop: hp(10),
             }}
           >
-            {points}
+            24
           </Text>
           <Text
             style={{

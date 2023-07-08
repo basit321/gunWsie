@@ -36,7 +36,6 @@ const Dashboard = ({ navigation }) => {
   const [seasons, setSeasons] = useState([])
   const [history, setHistory] = useState([])
   const [anaLytics, setAnaLytics] = useState([])
-  const [ratio, setRatio] = useState({})
 
   const anaLyticsLength = anaLytics.length;
 
@@ -107,33 +106,6 @@ const Dashboard = ({ navigation }) => {
     if (!season.id) return
 
     const anaLytics = history.filter(item => item.seasonRef.id === season.id)
-
-    // const passedQuizzes = 4;
-    // const failedQuizzes = 1;
-
-    let passed = 0;
-    let failed = 0;
-    let points = 0;
-    history.map(item => {
-      if (item.result === 'passed') {
-        passed += 1
-      } else {
-        failed += 1
-      }
-
-      if (typeof item.correct === 'number') {
-        points += item.correct
-      }
-
-    })
-
-    setRatio({
-      passedQuizzes: passed,
-      failedQuizzes: failed,
-      totalQuizzes: passed + failed,
-      progressPercentage: (passed / (passed + failed)) * 100,
-      points
-    })
 
     setAnaLytics(anaLytics)
 
@@ -322,7 +294,6 @@ const Dashboard = ({ navigation }) => {
           style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: "5%" }}
           renderItem={({ item, index }) => {
-            // console.log(item)
             return (
               <View
                 style={{
@@ -338,7 +309,7 @@ const Dashboard = ({ navigation }) => {
                     color: Colors.white,
                   }}
                 >
-                  {item.seasonRef.title} | QUIZ {item.quizRef.number}
+                  SEASON {item.seasons} | QUIZ {item.quiz}
                 </Text>
                 <Text
                   style={{
@@ -348,7 +319,7 @@ const Dashboard = ({ navigation }) => {
                     marginTop: hp(8),
                   }}
                 >
-                  {item.quizRef.title}
+                  {item.title}
                 </Text>
                 <View
                   style={{
@@ -358,59 +329,53 @@ const Dashboard = ({ navigation }) => {
                     marginTop: hp(18),
                   }}
                 >
-                  {
-                    item.status === 'completed' ?
-                      <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <Image
-                          source={Images.right}
-                          style={{ width: wp(14), height: hp(11) }}
-                        />
-                        <Text
-                          style={{
-                            ...FontSize.rfs16,
-                            fontFamily: Typrography.bold,
-                            color: Colors.white,
-                            marginLeft: wp(10),
-                          }}
-                        >
-                          {item.correct}
-                        </Text>
-                        <Image
-                          source={Images.cross}
-                          style={{
-                            width: wp(12),
-                            height: hp(12),
-                            marginLeft: wp(26),
-                          }}
-                        />
-                        <Text
-                          style={{
-                            ...FontSize.rfs16,
-                            fontFamily: Typrography.bold,
-                            color: Colors.white,
-                            marginLeft: wp(10),
-                          }}
-                        >
-                          {item.wrong}
-                        </Text>
-                      </View>
-                      : <View />
-                  }
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Image
+                      source={Images.right}
+                      style={{ width: wp(14), height: hp(11) }}
+                    />
+                    <Text
+                      style={{
+                        ...FontSize.rfs16,
+                        fontFamily: Typrography.bold,
+                        color: Colors.white,
+                        marginLeft: wp(10),
+                      }}
+                    >
+                      {item.passed}
+                    </Text>
+                    <Image
+                      source={Images.cross}
+                      style={{
+                        width: wp(12),
+                        height: hp(12),
+                        marginLeft: wp(26),
+                      }}
+                    />
+                    <Text
+                      style={{
+                        ...FontSize.rfs16,
+                        fontFamily: Typrography.bold,
+                        color: Colors.white,
+                        marginLeft: wp(10),
+                      }}
+                    >
+                      {item.failed}
+                    </Text>
+                  </View>
                   <Button
-                    title={item.result}
+                    title={item.status}
                     buttonStyle={{
                       width: wp(85),
                       height: hp(25),
                       backgroundColor:
-                        item.result === "passed"
+                        item.status === "Passed"
                           ? Colors.primaryGreen
                           : Colors.red,
                       borderRadius: 4,
-
                     }}
                     textStyle={{
                       ...FontSize.rfs14,
-                      textTransform: 'capitalize'
                     }}
                   />
                 </View>
@@ -420,7 +385,7 @@ const Dashboard = ({ navigation }) => {
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-      <AnalyticsModal modalVisible={modalizeRef} ratio={ratio} />
+      <AnalyticsModal modalVisible={modalizeRef} />
     </ImageBackground>
   );
 };

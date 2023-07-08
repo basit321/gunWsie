@@ -113,26 +113,19 @@ const Dashboard = ({ navigation }) => {
 
     let passed = 0;
     let failed = 0;
-    let points = 0;
     history.map(item => {
       if (item.result === 'passed') {
         passed += 1
       } else {
         failed += 1
       }
-
-      if (typeof item.correct === 'number') {
-        points += item.correct
-      }
-
     })
 
     setRatio({
       passedQuizzes: passed,
       failedQuizzes: failed,
       totalQuizzes: passed + failed,
-      progressPercentage: (passed / (passed + failed)) * 100,
-      points
+      progressPercentage: (passed / (passed + failed)) * 100
     })
 
     setAnaLytics(anaLytics)
@@ -420,7 +413,7 @@ const Dashboard = ({ navigation }) => {
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-      <AnalyticsModal modalVisible={modalizeRef} ratio={ratio} />
+      <AnalyticsModal modalVisible={modalizeRef} />
     </ImageBackground>
   );
 };

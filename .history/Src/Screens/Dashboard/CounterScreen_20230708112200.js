@@ -88,7 +88,6 @@ const CounterScreen = ({ navigation, route }) => {
           season: route.params.quiz.season.id,
           seasonRef: getReference('seasons', route.params.quiz.season.id),
           status: 'pending',
-          result: 'N/A'
         })
 
 

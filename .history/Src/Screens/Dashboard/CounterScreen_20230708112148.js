@@ -47,11 +47,6 @@ const CounterScreen = ({ navigation, route }) => {
 
         const questionLength = totalQuestions.length;
 
-        if (questionLength < 20) {
-          // handle any error or redirect
-          return
-        }
-
         const randomNumbers = [];
         while (randomNumbers.length < 20) {
           const randomNumber = Math.floor(Math.random() * questionLength);
@@ -88,7 +83,6 @@ const CounterScreen = ({ navigation, route }) => {
           season: route.params.quiz.season.id,
           seasonRef: getReference('seasons', route.params.quiz.season.id),
           status: 'pending',
-          result: 'N/A'
         })
 
 

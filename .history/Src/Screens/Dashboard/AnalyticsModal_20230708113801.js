@@ -8,13 +8,10 @@ import Typrography from "../../Utils/Typography";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 
 const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
-  // const passedQuizzes = 4;
-  // const failedQuizzes = 1;
-  // const totalQuizzes = passedQuizzes + failedQuizzes;
-  // const progressPercentage = (passedQuizzes / totalQuizzes) * 100;
-
-  const { passedQuizzes, failedQuizzes, totalQuizzes, progressPercentage = 0, points } = ratio;
-
+  const passedQuizzes = 4;
+  const failedQuizzes = 1;
+  const totalQuizzes = passedQuizzes + failedQuizzes;
+  const progressPercentage = (passedQuizzes / totalQuizzes) * 100;
   return (
     <Modalize
       ref={modalVisible}
@@ -212,7 +209,7 @@ const AnalyticsModal = ({ modalVisible, onClose, ratio }) => {
               marginTop: hp(10),
             }}
           >
-            {points}
+            24
           </Text>
           <Text
             style={{

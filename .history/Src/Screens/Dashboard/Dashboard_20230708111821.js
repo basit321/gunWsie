@@ -36,7 +36,6 @@ const Dashboard = ({ navigation }) => {
   const [seasons, setSeasons] = useState([])
   const [history, setHistory] = useState([])
   const [anaLytics, setAnaLytics] = useState([])
-  const [ratio, setRatio] = useState({})
 
   const anaLyticsLength = anaLytics.length;
 
@@ -107,33 +106,6 @@ const Dashboard = ({ navigation }) => {
     if (!season.id) return
 
     const anaLytics = history.filter(item => item.seasonRef.id === season.id)
-
-    // const passedQuizzes = 4;
-    // const failedQuizzes = 1;
-
-    let passed = 0;
-    let failed = 0;
-    let points = 0;
-    history.map(item => {
-      if (item.result === 'passed') {
-        passed += 1
-      } else {
-        failed += 1
-      }
-
-      if (typeof item.correct === 'number') {
-        points += item.correct
-      }
-
-    })
-
-    setRatio({
-      passedQuizzes: passed,
-      failedQuizzes: failed,
-      totalQuizzes: passed + failed,
-      progressPercentage: (passed / (passed + failed)) * 100,
-      points
-    })
 
     setAnaLytics(anaLytics)
 
@@ -397,20 +369,18 @@ const Dashboard = ({ navigation }) => {
                       : <View />
                   }
                   <Button
-                    title={item.result}
+                    title={item.status}
                     buttonStyle={{
                       width: wp(85),
                       height: hp(25),
                       backgroundColor:
-                        item.result === "passed"
+                        item.result === "Completed"
                           ? Colors.primaryGreen
                           : Colors.red,
                       borderRadius: 4,
-
                     }}
                     textStyle={{
                       ...FontSize.rfs14,
-                      textTransform: 'capitalize'
                     }}
                   />
                 </View>
@@ -420,7 +390,7 @@ const Dashboard = ({ navigation }) => {
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-      <AnalyticsModal modalVisible={modalizeRef} ratio={ratio} />
+      <AnalyticsModal modalVisible={modalizeRef} />
     </ImageBackground>
   );
 };
