@@ -23,6 +23,7 @@ import UseFirebase from "../../Hooks/useFirebase";
 import { where } from "firebase/firestore";
 import Loader from "../../Components/Loading";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Dashboard = ({ navigation }) => {
   const modalizeRef = useRef(null);
@@ -42,8 +43,15 @@ const Dashboard = ({ navigation }) => {
 
   const { user, setUser } = useAuth()
 
-  const Logout = async () => {
+  const onPressLogout = async () => {
     setUser({})
+    await AsyncStorage.removeItem("@UserProfile");
+    setTimeout(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: Routes.Login }],
+      });
+    },0);
   }
 
   useFocusEffect(
@@ -154,7 +162,8 @@ const Dashboard = ({ navigation }) => {
       <View style={{ flex: 1, marginLeft: "5%" }}>
         <View>
           <View style={{ height: hp(80) }} />
-
+         <View style={{flexDirection:"row",justifyContent:"space-between"}}> 
+          
           <Text
             style={{
               color: Colors.primaryGreen,
@@ -164,12 +173,26 @@ const Dashboard = ({ navigation }) => {
           >
             WELCOME
           </Text>
+          <TouchableOpacity hitSlop={50} onPress={onPressLogout} > 
+          <Text
+            style={{
+              ...FontSize.rfs15,
+              fontFamily: Typrography.bold,
+              color: Colors.white,
+              marginRight:"5%"
+            }}
+          >
+            Logout
+          </Text>
+          </TouchableOpacity>
+          </View>
 
           <Text style={styles.headerText}>{user.name}</Text>
           <View style={{ height: hp(20) }} />
           <FlatList
             data={quizes}
             horizontal
+            
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={styles.quixBox}>
@@ -250,6 +273,21 @@ const Dashboard = ({ navigation }) => {
                 />
               </View>
             )}
+            ListEmptyComponent={<View>
+    <Text
+            style={{
+              
+              ...FontSize.rfs20,
+              fontFamily: Typrography.bold,
+              color: Colors.white,
+              marginLeft:"auto"
+            }}
+          >
+          
+         you dont have any {"\n"}active quiz right now 
+
+          </Text>
+            </View>}
             keyExtractor={(item) => item.id}
           />
           <Text
@@ -290,6 +328,7 @@ const Dashboard = ({ navigation }) => {
               />
             )}
             keyExtractor={(item) => item.id.toString()}
+           
           />
           <View style={{ height: hp(17) }} />
           <View
@@ -326,7 +365,7 @@ const Dashboard = ({ navigation }) => {
           data={anaLytics}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          style={{ flex: 1 }}
+          style={{ flex: 1,}}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: "5%" }}
           renderItem={({ item, index }) => {
             // console.log(item)
@@ -425,6 +464,18 @@ const Dashboard = ({ navigation }) => {
             )
           }}
           keyExtractor={(item) => item.id.toString()}
+          ListEmptyComponent={<View style={{flex:1,justifyContent:"center",alignItems:"center"}}> 
+              <Text
+              style={{
+                ...FontSize.rfs15,
+                fontFamily: Typrography.bold,
+                color: Colors.white,
+                marginRight:"5%"
+              }}
+            >
+              You didnt attempt any quiz right now 
+            </Text>
+          </View>}
         />
       </View>
       <AnalyticsModal modalVisible={modalizeRef} ratio={ratio} />

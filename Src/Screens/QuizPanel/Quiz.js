@@ -7,6 +7,7 @@ import {
   Alert,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Button from "../../Components/Button";
@@ -36,8 +37,12 @@ const Quiz = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth()
   const { addDocument, updateDocument } = UseFirebase()
+  const [imageLoading,setImageLoading]=useState(true)
 
 
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
 
   const popup = () => {
     Alert.alert(
@@ -51,26 +56,18 @@ const Quiz = ({ navigation, route }) => {
         },
         {
           text: "Quit",
-          onPress: () => navigation.navigate(Routes.Dashoard),
+          onPress: () => {
+           onPressQuit()
+        
+
+
+          }
         },
       ],
       { cancelable: false }
     );
   };
-  const onQuizTimeEnd = async () => {
-
-    Alert.alert(
-      "Time's up!",
-      "Your quiz time is over",
-      [
-        {
-          text: "ok",
-          onPress: () => navigation.navigate(Routes.Dashoard),
-        },
-      ],
-      { cancelable: false }
-    );
-
+  const onPressQuit=async()=>{
     const rest = await updateDocument('results', user.uid + route.params.quiz.id, {
       status: 'completed',
       correct: result,
@@ -78,6 +75,40 @@ const Quiz = ({ navigation, route }) => {
       total: quizData.length,
       result: result / quizData.length * 100 >= 50 ? 'passed' : 'failed',
     })
+    setTimeout(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: Routes.Dashoard }],
+      });
+    },0)
+  }
+  const onQuizTimeEnd = async () => {
+    const rest = await updateDocument('results', user.uid + route.params.quiz.id, {
+      status: 'completed',
+      correct: result,
+      wrong: quizData.length - result,
+      total: quizData.length,
+      result: result / quizData.length * 100 >= 50 ? 'passed' : 'failed',
+    })
+
+    Alert.alert(
+      "Time's up!",
+      "Your quiz time is over",
+      [
+        {
+          text: "ok",
+          onPress: () =>  setTimeout(() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: Routes.Dashoard }],
+            });
+          },0)
+        },
+      ],
+      { cancelable: false }
+    );
+
+    
   }
 
 
@@ -123,11 +154,22 @@ const Quiz = ({ navigation, route }) => {
           {
             text: "ok",
             onPress: () => {
-              navigation.navigate(Routes.Sumary, {
-                correct: res,
+              // navigation.navigate(Routes.Sumary, {
+              //   correct: res,
+              //   wrong: quizData.length - res,
+              //   total: quizData.length,
+              // })
+              setTimeout(() => {
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: Routes.Sumary ,params:{
+                    correct: res,
                 wrong: quizData.length - res,
                 total: quizData.length,
-              })
+                  }}],
+                  
+                });
+              },0);
             },
           },
         ],
@@ -236,6 +278,14 @@ const Quiz = ({ navigation, route }) => {
                         : Colors.lightGray,
                   }}
                 >
+                  {imageLoading && (
+            <View
+              style={{ position: "absolute", bottom:0, alignSelf: "center",marginBottom:"20%" }}
+            >
+              <ActivityIndicator size="small" color={Colors.primaryGreen} />
+            </View>
+          )}
+
                   <Image
                     source={{ uri: item.image }}
                     style={{
@@ -243,6 +293,8 @@ const Quiz = ({ navigation, route }) => {
                       height: hp(140),
                       borderRadius: 4,
                     }}
+           onLoadStart={() => setImageLoading(true)}
+            onLoadEnd={handleImageLoad}
                   />
                 </TouchableOpacity>
               )}
@@ -289,6 +341,13 @@ const Quiz = ({ navigation, route }) => {
                           : Colors.lightGray,
                     }}
                   >
+             {imageLoading && (
+            <View
+              style={{ position: "absolute", bottom:0, alignSelf: "center",marginBottom:"25%" }}
+            >
+              <ActivityIndicator size="small" color={Colors.primaryGreen} />
+            </View>
+          )}
                     <Image
                       source={{ uri: item.image }}
                       style={{
@@ -296,6 +355,9 @@ const Quiz = ({ navigation, route }) => {
                         height: hp(95),
                         borderRadius: 4,
                       }}
+                      onLoadStart={() => setImageLoading(true)}
+                      onLoadEnd={handleImageLoad}
+
                     />
                   </TouchableOpacity>
                 </>
@@ -326,6 +388,13 @@ const Quiz = ({ navigation, route }) => {
                 borderColor: Colors.lightGray,
               }}
             >
+              {imageLoading && (
+            <View
+              style={{ position: "absolute", bottom:0, alignSelf: "center",marginBottom:"10%" }}
+            >
+              <ActivityIndicator size="small" color={Colors.primaryGreen} />
+            </View>
+          )} 
               <Image
                 source={{ uri: quizData[quizIndex].questionImg }}
                 style={{

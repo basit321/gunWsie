@@ -20,8 +20,7 @@ const Summary = ({ navigation, route }) => {
 
   const { correct, wrong, total } = route.params
 
-  const pass = correct / total * 100 >= 50
-
+  
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -156,7 +155,12 @@ const Summary = ({ navigation, route }) => {
         <Button
           title={"CONTINUE"}
           onPress={() => {
-            navigation.navigate(Routes.Dashoard);
+            setTimeout(() => {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: Routes.Dashoard }],
+              });
+            },0);
           }}
           buttonStyle={{ width: hp(267) }}
         />

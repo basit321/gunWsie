@@ -8,7 +8,7 @@ import {
   Alert,
 
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Images from "../..//Assets/Images";
 import Typrography from "../../Utils/Typography";
 import Colors from "../../Utils/Colors";
@@ -29,7 +29,7 @@ const Login = ({ navigation }) => {
 
   const { addDocumentWithId, updateDocument, getDocumentById } = UseFirebase()
   const { setUser } = useAuth()
-
+const [loading,setLoading]=useState(false)
   GoogleSignin.configure({
 
     webClientId: '523865209818-uk1knvjke7vnpb5vqpnkakjbn3qpu884.apps.googleusercontent.com',
@@ -46,9 +46,9 @@ const Login = ({ navigation }) => {
 
       // Sign in the user with the credential
       const login = await auth().signInWithCredential(credential);
-
+      setLoading(true)
       const newUser = login.additionalUserInfo.isNewUser
-
+      console.log(newUser)
       if (newUser) {
         const user = {
           provider: 'google',
@@ -58,21 +58,31 @@ const Login = ({ navigation }) => {
           uid: login.user.uid,
           status: 'active'
         }
-
-        await addDocumentWithId('users', login.user.uid, user)
+       
+        await addDocumentWithId('users', login?.user?.uid, user)
 
         setUser(newUser)
+        await AsyncStorage.setItem("@UserProfile", JSON.stringify(login));
+        setLoading(false)
+        setTimeout(() => {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: Routes.Welcome }],
+          });
+        },0);
 
       } else {
 
-        const res1 = await getDocumentById('users', login.user.uid)
+         const res1 = await getDocumentById('users', login.user.uid)
+         console.log(res1)
 
-        if (res1.status === 400) {
+        if (res1?.status === 400) {
           // handle any error or redirect
+          Alert.alert("You cannot login ")
           return
         }
 
-        if (res1.data.status === 'blocked') {
+        if (res1?.data?.status === 'blocked') {
           Alert.alert('Your account has been blocked')
           return
         }
@@ -89,12 +99,19 @@ const Login = ({ navigation }) => {
           ...user,
           uid: login.user.uid
         })
+        await AsyncStorage.setItem("@UserProfile", JSON.stringify(login));
+        setLoading(false)
+        setTimeout(() => {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: Routes.Welcome }],
+          });
+        },0);
 
       }
 
-      // Show an alert for successful login and authentication
-      await AsyncStorage.setItem("@UserProfile", JSON.stringify(login));
-      navigation.navigate(Routes.Welcome);
+      
+    
 
     } catch (error) {
       if (error.message === 'Sign in action cancelled') {
@@ -107,7 +124,7 @@ const Login = ({ navigation }) => {
         // Handle Play Services not available
         Alert.alert("PLEASE ENABLE PLAY SERVICE")
       } else {
-        // Handle other errors
+         console.log(error)
         Alert.alert("NetworkError")
       }
     }
@@ -128,6 +145,8 @@ const Login = ({ navigation }) => {
         title={"Sign In  With Google"}
         textStyle={{ color: Colors.white }}
         onPress={onGoogleButtonPress}
+        disabled={loading}
+       
       />
       <View style={{ height: hp(40) }} />
     </ImageBackground>

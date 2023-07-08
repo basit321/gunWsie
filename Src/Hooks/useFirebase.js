@@ -33,7 +33,7 @@ export default function UseFirebase() {
             } else {
 
                 if (setLoading) setLoading(false)
-                Alert.alert("No such document!");
+                // Alert.alert("No such document!");
             }
 
         } catch (error) {

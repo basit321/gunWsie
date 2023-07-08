@@ -14,6 +14,7 @@ const Button = ({
   showDropDownIcon = false,
   disabled,
   activeOpacity,
+  disbaleColor,
   key,
 }) => {
   return (
