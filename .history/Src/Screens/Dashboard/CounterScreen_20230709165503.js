@@ -72,7 +72,7 @@ const CounterScreen = ({ navigation, route }) => {
         res = await getDocuments('questions', null, where(documentId(), 'in', randomNumbers));
 
         if (res.status === 400) {
-          throw new Error(res.error)
+
           return
         }
 

@@ -44,7 +44,8 @@ const CounterScreen = ({ navigation, route }) => {
         let res = await getDocuments('questions');
 
         if (res.status === 400) {
-          throw new Error(res.error)
+          // handle any error or redirect
+          setLoading(false)
           return
         }
         const totalQuestions = res.data;
@@ -54,7 +55,9 @@ const CounterScreen = ({ navigation, route }) => {
         const questionLength = totalQuestions.length;
 
         if (questionLength < 20) {
-          Alert.alert('Error getting questions: ', 'Not enough questions');
+          // handle any error or redirect
+
+          setLoading(false)
           return
         }
 
@@ -72,7 +75,8 @@ const CounterScreen = ({ navigation, route }) => {
         res = await getDocuments('questions', null, where(documentId(), 'in', randomNumbers));
 
         if (res.status === 400) {
-          throw new Error(res.error)
+          // handle any error or redirect
+          setLoading(false)
           return
         }
 
@@ -82,17 +86,9 @@ const CounterScreen = ({ navigation, route }) => {
           users: arrayUnion(user.uid)
         })
 
-        if (season.status === 400) {
-          throw new Error(season.error)
-        }
-
         const quiz = await updateDocument('quizes', route.params.quiz.id, {
           users: arrayUnion(user.uid)
         })
-
-        if (quiz.status === 400) {
-          throw new Error(season.error)
-        }
 
         const result = await addDocumentWithId('results', user.uid + route.params.quiz.id, {
           user: user.uid,
@@ -104,10 +100,6 @@ const CounterScreen = ({ navigation, route }) => {
           status: 'pending',
           result: 'N/A'
         })
-
-        if (result.status === 400) {
-          throw new Error(result.error)
-        }
 
         setLoading(false)
 

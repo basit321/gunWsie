@@ -54,7 +54,8 @@ const CounterScreen = ({ navigation, route }) => {
         const questionLength = totalQuestions.length;
 
         if (questionLength < 20) {
-          Alert.alert('Error getting questions: ', 'Not enough questions');
+
+          setLoading(false)
           return
         }
 
@@ -72,7 +73,7 @@ const CounterScreen = ({ navigation, route }) => {
         res = await getDocuments('questions', null, where(documentId(), 'in', randomNumbers));
 
         if (res.status === 400) {
-          throw new Error(res.error)
+
           return
         }
 
