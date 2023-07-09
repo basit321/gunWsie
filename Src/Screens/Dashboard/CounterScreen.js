@@ -44,6 +44,7 @@ const CounterScreen = ({ navigation, route }) => {
         let res = await getDocuments('questions');
 
         if (res.status === 400) {
+          console.log('res ', res.error);
           throw new Error(res.error)
           return
         }
@@ -72,17 +73,20 @@ const CounterScreen = ({ navigation, route }) => {
         res = await getDocuments('questions', null, where(documentId(), 'in', randomNumbers));
 
         if (res.status === 400) {
+          console.log('res1 ', res.error);
           throw new Error(res.error)
           return
         }
 
         setQuestions(res.data)
+        console.log(user.uid);
 
         const season = await updateDocument('seasons', route.params.quiz.season.id, {
           users: arrayUnion(user.uid)
         })
 
         if (season.status === 400) {
+          console.log('res2 ', season.error);
           throw new Error(season.error)
         }
 
@@ -106,6 +110,7 @@ const CounterScreen = ({ navigation, route }) => {
         })
 
         if (result.status === 400) {
+          console.log('res3 ', result.error);
           throw new Error(result.error)
         }
 
@@ -119,13 +124,13 @@ const CounterScreen = ({ navigation, route }) => {
           [
             {
               text: "ok",
-              onPress: () => { setLoading(false),navigation.goBack()}
+              onPress: () => { setLoading(false), navigation.goBack() }
             },
           ],
           { cancelable: false }
         );
-       
-      
+
+
       }
 
     }

@@ -9,20 +9,26 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         // fetch user data from async storage
-        AsyncStorage.getItem('@UserProfile')
-            .then((res) => {
-                if (res) {
-                    const user = JSON.parse(res);
+        const getUser = async () => {
+            await AsyncStorage.getItem('@UserProfile')
+                .then((res) => {
+                    if (res) {
+                        const user = JSON.parse(res);
 
-                    setUser({
-                        email: user.user.email,
-                        name: user.user.displayName,
-                        avatar: user.user.photoURL,
-                        uid: user.user.uid,
-                    });
+                        console.log('user context: ', user.user.uid);
+
+                        setUser({
+                            email: user.user.email,
+                            name: user.user.displayName,
+                            avatar: user.user.photoURL,
+                            uid: user.user.uid,
+                        });
+                    }
                 }
-            }
-            )
+                )
+        }
+
+        getUser();
     }, []);
 
     return (

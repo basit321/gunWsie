@@ -29,7 +29,7 @@ const Login = ({ navigation }) => {
 
   const { addDocumentWithId, updateDocument, getDocumentById } = UseFirebase()
   const { setUser } = useAuth()
-const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false)
   GoogleSignin.configure({
 
     webClientId: '523865209818-uk1knvjke7vnpb5vqpnkakjbn3qpu884.apps.googleusercontent.com',
@@ -47,9 +47,16 @@ const [loading,setLoading]=useState(false)
       // Sign in the user with the credential
       const login = await auth().signInWithCredential(credential);
       setLoading(true)
+
+      console.log(login)
       const newUser = login.additionalUserInfo.isNewUser
       console.log(newUser)
       if (newUser) {
+
+        console.log('new user')
+        // console.log(login.user)
+        console.log(login.user.uid)
+
         const user = {
           provider: 'google',
           email: login.user.email,
@@ -58,10 +65,10 @@ const [loading,setLoading]=useState(false)
           uid: login.user.uid,
           status: 'active'
         }
-       
+
         await addDocumentWithId('users', login?.user?.uid, user)
 
-        setUser(newUser)
+        setUser(user)
         await AsyncStorage.setItem("@UserProfile", JSON.stringify(login));
         setLoading(false)
         setTimeout(() => {
@@ -69,12 +76,12 @@ const [loading,setLoading]=useState(false)
             index: 0,
             routes: [{ name: Routes.Welcome }],
           });
-        },0);
+        }, 0);
 
       } else {
 
-         const res1 = await getDocumentById('users', login.user.uid)
-         console.log(res1)
+        const res1 = await getDocumentById('users', login.user.uid)
+        console.log(res1)
 
         if (res1?.status === 400) {
           // handle any error or redirect
@@ -93,6 +100,10 @@ const [loading,setLoading]=useState(false)
           avatar: login.user.photoURL,
         }
 
+        console.log('Already a user')
+        // console.log(login)
+        console.log(login.user.uid)
+
         await updateDocument('users', login.user.uid, user)
 
         setUser({
@@ -106,12 +117,12 @@ const [loading,setLoading]=useState(false)
             index: 0,
             routes: [{ name: Routes.Welcome }],
           });
-        },0);
+        }, 0);
 
       }
 
-      
-    
+
+
 
     } catch (error) {
       if (error.message === 'Sign in action cancelled') {
@@ -124,7 +135,7 @@ const [loading,setLoading]=useState(false)
         // Handle Play Services not available
         Alert.alert("PLEASE ENABLE PLAY SERVICE")
       } else {
-         console.log(error)
+        console.log(error)
         Alert.alert("NetworkError")
       }
     }
@@ -146,7 +157,7 @@ const [loading,setLoading]=useState(false)
         textStyle={{ color: Colors.white }}
         onPress={onGoogleButtonPress}
         disabled={loading}
-       
+
       />
       <View style={{ height: hp(40) }} />
     </ImageBackground>
