@@ -25,12 +25,12 @@ import Loader from "../../Components/Loading";
 import useAuth from "../../Hooks/useAuth";
 import UseFirebase from "../../Hooks/useFirebase";
 import { arrayUnion } from "firebase/firestore";
-
+import { CommonActions } from "@react-navigation/native";
 const Quiz = ({ navigation, route }) => {
 
   const options = ['optionA', 'optionB', 'optionC', 'optionD']
   const [quizData, setQuizData] = useState(route.params.questions);
-  const isFocused = useIsFocused()
+  // const isFocused = useIsFocused()
   const [quizIndex, setQuizIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [result, setResult] = useState(0);
@@ -68,47 +68,52 @@ const Quiz = ({ navigation, route }) => {
     );
   };
   const onPressQuit=async()=>{
-    const rest = await updateDocument('results', user.uid + route.params.quiz.id, {
-      status: 'completed',
-      correct: result,
-      wrong: quizData.length - result,
-      total: quizData.length,
-      result: result / quizData.length * 100 >= 50 ? 'passed' : 'failed',
-    })
-    setTimeout(() => {
-      navigation.reset({
+   
+ 
+    navigation.dispatch(
+      CommonActions.reset({
         index: 0,
         routes: [{ name: Routes.Dashoard }],
-      });
-    },0)
-  }
-  const onQuizTimeEnd = async () => {
-    const rest = await updateDocument('results', user.uid + route.params.quiz.id, {
+      })
+    )
+    const res =   await updateDocument('results', user.uid + route.params.quiz.id, {
       status: 'completed',
       correct: result,
       wrong: quizData.length - result,
       total: quizData.length,
       result: result / quizData.length * 100 >= 50 ? 'passed' : 'failed',
     })
-
+    
+  }
+  const onQuizTimeEnd = async () => {
+   
+   
     Alert.alert(
       "Time's up!",
       "Your quiz time is over",
       [
         {
           text: "ok",
-          onPress: () =>  setTimeout(() => {
-            navigation.reset({
+          onPress: () => 
+          navigation.dispatch(
+            CommonActions.reset({
               index: 0,
               routes: [{ name: Routes.Dashoard }],
-            });
-          },0)
+            })
+          )
         },
       ],
       { cancelable: false }
     );
+    const res = await updateDocument('results', user.uid + route.params.quiz.id, {
+      status: 'completed',
+      correct: result,
+      wrong: quizData.length - result,
+      total: quizData.length,
+      result: result / quizData.length * 100 >= 50 ? 'passed' : 'failed',
+    })
+     
 
-    
   }
 
 
@@ -504,11 +509,11 @@ const Quiz = ({ navigation, route }) => {
           >
             {quizIndex + 1}/{quizData.length}
           </Text>
-          {isFocused && (
+          
             <Timer
-              time={20 * 60}
+              time={20*60}
               onTimeFinish={onQuizTimeEnd} />
-          )}
+       
 
 
 

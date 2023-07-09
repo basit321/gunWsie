@@ -113,9 +113,19 @@ const CounterScreen = ({ navigation, route }) => {
 
       } catch (error) {
         //console.log('Error getting questions: ', error);
-        Alert.alert('Error getting questions: ', error.message);
-        setLoading(false)
-        navigation.goBack()
+        Alert.alert(
+          "Error getting questions",
+          "try another quiz",
+          [
+            {
+              text: "ok",
+              onPress: () => { setLoading(false),navigation.goBack()}
+            },
+          ],
+          { cancelable: false }
+        );
+       
+      
       }
 
     }

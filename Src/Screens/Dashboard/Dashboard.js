@@ -43,6 +43,7 @@ const Dashboard = ({ navigation }) => {
 
   const { user, setUser } = useAuth()
 
+
   const onPressLogout = async () => {
     setUser({})
     await AsyncStorage.removeItem("@UserProfile");
@@ -154,7 +155,7 @@ const Dashboard = ({ navigation }) => {
 
   }, [season])
 
-  // console.log(user)
+  
 
   return (
     <ImageBackground source={Images.primaryBackground} style={styles.container}>
