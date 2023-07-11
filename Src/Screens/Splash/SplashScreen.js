@@ -23,7 +23,7 @@ const SplashScreen = ({ navigation }) => {
      
       Animated.timing(scaleValue, {
         toValue: 1,
-        duration: 2000, // Duration for the animation (in milliseconds)
+        duration: 1000, // Duration for the animation (in milliseconds)
         useNativeDriver: true, // Enable native driver for performance
       }).start();
       setTimeout(() => {
@@ -34,7 +34,7 @@ const SplashScreen = ({ navigation }) => {
         else{
           navigation.navigate(Routes.Welcome);
         }
-      }, 2000);
+      }, 900);
     };
     navigatetoNextScreen();
   }, []);

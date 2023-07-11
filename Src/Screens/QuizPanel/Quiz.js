@@ -283,13 +283,7 @@ const Quiz = ({ navigation, route }) => {
                         : Colors.lightGray,
                   }}
                 >
-                  {imageLoading && (
-            <View
-              style={{ position: "absolute", bottom:0, alignSelf: "center",marginBottom:"20%" }}
-            >
-              <ActivityIndicator size="small" color={Colors.primaryGreen} />
-            </View>
-          )}
+               
 
                   <Image
                     source={{ uri: item.image }}
@@ -346,13 +340,7 @@ const Quiz = ({ navigation, route }) => {
                           : Colors.lightGray,
                     }}
                   >
-             {imageLoading && (
-            <View
-              style={{ position: "absolute", bottom:0, alignSelf: "center",marginBottom:"25%" }}
-            >
-              <ActivityIndicator size="small" color={Colors.primaryGreen} />
-            </View>
-          )}
+          
                     <Image
                       source={{ uri: item.image }}
                       style={{
@@ -393,13 +381,7 @@ const Quiz = ({ navigation, route }) => {
                 borderColor: Colors.lightGray,
               }}
             >
-              {imageLoading && (
-            <View
-              style={{ position: "absolute", bottom:0, alignSelf: "center",marginBottom:"10%" }}
-            >
-              <ActivityIndicator size="small" color={Colors.primaryGreen} />
-            </View>
-          )} 
+            
               <Image
                 source={{ uri: quizData[quizIndex].questionImg }}
                 style={{
